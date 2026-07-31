@@ -26,7 +26,7 @@ from desktop_parser import (
 class DesktopCreatorWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.set_title("Creador de Accesos Directos (.desktop)")
+        self.set_title("Desktop Shortcut Creator (.desktop)")
         self.set_default_size(800, 720)
 
         self.current_filepath = None
@@ -51,7 +51,7 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
 
         switcher_title = Adw.ViewSwitcherTitle()
         switcher_title.set_stack(self.view_stack)
-        switcher_title.set_title("Creador .desktop")
+        switcher_title.set_title("Desktop Creator")
         self.header_bar.set_title_widget(switcher_title)
 
         view_switcher_bar = Adw.ViewSwitcherBar()
@@ -65,11 +65,11 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
         self.header_bar.pack_start(open_btn)
 
         new_btn = Gtk.Button(icon_name="document-new-symbolic")
-        new_btn.set_tooltip_text("Nuevo acceso directo (limpiar)")
+        new_btn.set_tooltip_text("Nuevo acceso directo (limpiar formulario)")
         new_btn.connect("clicked", self.on_new_clicked)
         self.header_bar.pack_start(new_btn)
 
-        save_sys_btn = Gtk.Button(label="Guardar en Sistema")
+        save_sys_btn = Gtk.Button(label="Save to System")
         save_sys_btn.add_css_class("suggested-action")
         save_sys_btn.set_tooltip_text("Guardar directamente en ~/.local/share/applications/")
         save_sys_btn.connect("clicked", self.on_save_system_clicked)
@@ -100,26 +100,26 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
         pref_page = Adw.PreferencesPage()
 
         # --- GRUPO 1: Información Básica ---
-        grp_basic = Adw.PreferencesGroup(title="Información Principal", description="Datos básicos del acceso directo")
+        grp_basic = Adw.PreferencesGroup(title="Información principal", description="Datos básicos del acceso directo")
         pref_page.add(grp_basic)
 
-        self.row_name = Adw.EntryRow(title="Nombre de la Aplicación (Name)")
-        self.row_name.set_tooltip_text("Ejemplo: Mi Juego, Script Útil, Firefox Custom")
+        self.row_name = Adw.EntryRow(title="Nombre de la aplicación (Name)")
+        self.row_name.set_tooltip_text("Ejemplo: Mi Juego, Script útil, Firefox personalizado")
         self.row_name.connect("changed", self.on_form_field_changed)
         grp_basic.add(self.row_name)
 
-        self.row_generic = Adw.EntryRow(title="Nombre Genérico (GenericName)")
-        self.row_generic.set_tooltip_text("Ejemplo: Navegador Web, Editor de Texto, IDE")
+        self.row_generic = Adw.EntryRow(title="Nombre genérico (GenericName)")
+        self.row_generic.set_tooltip_text("Ejemplo: Navegador web, Editor de texto, IDE")
         self.row_generic.connect("changed", self.on_form_field_changed)
         grp_basic.add(self.row_generic)
 
         self.row_comment = Adw.EntryRow(title="Descripción / Comentario (Comment)")
-        self.row_comment.set_tooltip_text("Breve descripción que aparece al pasar el cursor o buscar")
+        self.row_comment.set_tooltip_text("Descripción corta mostrada al pasar el cursor o en la búsqueda")
         self.row_comment.connect("changed", self.on_form_field_changed)
         grp_basic.add(self.row_comment)
 
         # --- GRUPO 2: Comando y Ejecución ---
-        grp_exec = Adw.PreferencesGroup(title="Comando y Ejecución", description="Ruta al ejecutable y opciones de lanzamiento")
+        grp_exec = Adw.PreferencesGroup(title="Comando y ejecución", description="Ruta al ejecutable y opciones de lanzamiento")}
         pref_page.add(grp_exec)
 
         # Exec row
@@ -141,8 +141,8 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
         grp_exec.add(self.row_exec)
 
         # Path row
-        self.row_path = Adw.EntryRow(title="Directorio de Trabajo (Path) - Opcional")
-        self.row_path.set_tooltip_text("Carpeta desde donde se ejecutará el programa")
+        self.row_path = Adw.EntryRow(title="Directorio de trabajo (Path) - Opcional")
+        self.row_path.set_tooltip_text("Carpeta desde la que se ejecutará el programa")
         self.row_path.connect("changed", self.on_form_field_changed)
 
         btn_browse_path = Gtk.Button(icon_name="folder-open-symbolic")
@@ -153,17 +153,17 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
         grp_exec.add(self.row_path)
 
         # Terminal switch
-        self.switch_terminal = Adw.SwitchRow(title="Ejecutar en Terminal (Terminal)")
-        self.switch_terminal.set_subtitle("Activa esta opción si es una herramienta CLI o script de terminal")
+        self.switch_terminal = Adw.SwitchRow(title="Ejecutar en terminal (Terminal)")
+        self.switch_terminal.set_subtitle("Activa esto si es una herramienta CLI o un script de terminal")
         self.switch_terminal.connect("notify::active", self.on_form_field_changed)
         grp_exec.add(self.switch_terminal)
 
         # --- GRUPO 3: Icono y Apariencia ---
-        grp_icon = Adw.PreferencesGroup(title="Icono y Apariencia")
+        grp_icon = Adw.PreferencesGroup(title="Icono y apariencia")
         pref_page.add(grp_icon)
 
         self.row_icon = Adw.EntryRow(title="Icono (Icon)")
-        self.row_icon.set_tooltip_text("Nombre de icono de sistema (ej: 'utilities-terminal') o ruta a imagen (.png, .svg)")
+        self.row_icon.set_tooltip_text("Nombre de icono del sistema (ej. 'utilities-terminal') o ruta a imagen (.png, .svg)")
         self.row_icon.connect("changed", self.on_icon_changed)
 
         self.img_icon_preview = Gtk.Image.new_from_icon_name("application-x-executable")
