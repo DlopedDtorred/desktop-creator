@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.dlopeddtorred.desktop-creator</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Creador .desktop</name>
+  <summary>Crea y gestiona accesos directos de aplicaciones fácilmente</summary>
+  
+  <description>
+    <p>
+      Creador .desktop es una aplicación gráfica moderna construida con GTK4 y Libadwaita 
+      que permite a los usuarios de Linux crear, editar y administrar 
+      archivos de acceso directo (.desktop) de manera intuitiva.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">io.github.dlopeddtorred.desktop-creator.desktop</launchable>
+
+  <url type="homepage">https://github.com/dlopeddtorred/desktop-creator</url>
+  <url type="bugtracker">https://github.com/dlopeddtorred/desktop-creator/issues</url>
+
+  <content_rating type="oars-1.1"/>
+</component>

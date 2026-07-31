@@ -492,7 +492,6 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
             return
         work_dir = self.row_path.get_text().strip() or None
         if self.switch_terminal.get_active():
-            # Run in gnome-terminal or x-terminal-emulator if possible
             test_cmd = f"gnome-terminal -- bash -c {shlex.quote(cmd + '; echo \"-- Presiona Enter para cerrar --\"; read')}"
         else:
             test_cmd = cmd
@@ -551,8 +550,7 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
         try:
             save_desktop_file(target_path, data)
             valid, msg = validate_desktop_file(target_path)
-            self.show_toast(f" Guardado en sistema: {filename}")
-            # Refresh desktop database
+            self.show_toast(f"Guardado en sistema: {filename}")
             subprocess.run(["update-desktop-database", apps_dir], capture_output=True)
         except Exception as e:
             self.show_toast(f"Error al guardar: {e}")
@@ -587,7 +585,6 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
 
     # --- Manager Tab Logic ---
     def refresh_manager_list(self):
-        # Clear existing list
         while True:
             child = self.manager_listbox.get_first_child()
             if not child:
@@ -617,13 +614,11 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
             exec_cmd = data.get("exec", "")
             icon_name = data.get("icon", "application-x-executable")
 
-            # Filter by search
             if search_query and (search_query not in name.lower() and search_query not in exec_cmd.lower() and search_query not in fname.lower()):
                 continue
 
             row = Adw.ActionRow(title=name, subtitle=f"Exec: {exec_cmd}")
 
-            # Icon
             img = Gtk.Image()
             if os.path.exists(icon_name):
                 img.set_from_file(icon_name)
@@ -632,14 +627,12 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
             img.set_pixel_size(24)
             row.add_prefix(img)
 
-            # Edit button
             btn_edit = Gtk.Button(icon_name="document-edit-symbolic")
             btn_edit.set_valign(Gtk.Align.CENTER)
             btn_edit.set_tooltip_text("Cargar en el formulario para editar")
             btn_edit.connect("clicked", self.make_edit_handler(filepath, data))
             row.add_suffix(btn_edit)
 
-            # Delete button
             btn_delete = Gtk.Button(icon_name="user-trash-symbolic")
             btn_delete.set_valign(Gtk.Align.CENTER)
             btn_delete.add_css_class("destructive-action")
@@ -681,7 +674,7 @@ class DesktopCreatorWindow(Adw.ApplicationWindow):
 class DesktopCreatorApp(Adw.Application):
     def __init__(self):
         super().__init__(
-            application_id="io.github.desktop_creator",
+            application_id="io.github.dlopeddtorred.desktop-creator",
             flags=Gio.ApplicationFlags.FLAGS_NONE
         )
 

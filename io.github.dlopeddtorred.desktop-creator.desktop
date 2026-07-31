@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Creador .desktop
+GenericName=Creador de Accesos Directos
+Comment=Crea y gestiona archivos .desktop fácilmente para GNOME Fedora
+Exec=desktop-creator
+Icon=io.github.dlopeddtorred.desktop-creator
+Terminal=false
+Categories=Utility;Development;Settings;
+StartupNotify=true
